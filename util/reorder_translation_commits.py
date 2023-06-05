@@ -12,7 +12,7 @@ try:
 except:
 	print("Initiate the rebase first!")
 	exit(1)
-lines = list(s.strip("\r\n") for s in f.readlines())
+lines = [s.strip("\r\n") for s in f.readlines()]
 f.close()
 
 for i in range(len(lines)):
@@ -25,7 +25,7 @@ for i in range(len(lines)):
 	for j in range(i+1, len(lines)):
 		if lines[j].startswith("#") or not lines[j].endswith(lang): continue
 		if author in lines[j]:
-			lines.insert(i+1, "f " + lines.pop(j)[5:])
+			lines.insert(i+1, f"f {lines.pop(j)[5:]}")
 		break
 
 with open(".git/rebase-merge/git-rebase-todo", "w") as f:
